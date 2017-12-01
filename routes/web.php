@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $db = DB::table('cities')->get();
+    var_dump($db);
+    //return view('welcome');
 });
