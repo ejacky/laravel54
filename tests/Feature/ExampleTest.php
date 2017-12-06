@@ -20,4 +20,11 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testJsonTest()
+    {
+        $response = $this->json('POST', '/api/user', ['name' => 'jacky']);
+        $response->assertStatus(200)
+            ->assertJson(['created' => true,]);
+    }
 }

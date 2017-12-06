@@ -18,6 +18,19 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('fuck', function () {
+    $red = Redis::hget('client_policy', 'e6cca89c21504603ac5f3b543533e00b');
+    dump($red);
+
+    dump(date('Y-m-d H:i:s', '1512465685'));
+    dump(strtotime('2017-12-05 17:21:25'));
+
+    dump(date('Y-m-d H:i:s', '1512463573'));
+
+
+
+    exit;
+
+    exit;
     $ret = DB::table('weather')->get();
     dump($ret);
     echo "hello , fuck!";
