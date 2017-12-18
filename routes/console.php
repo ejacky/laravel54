@@ -31,6 +31,7 @@ Artisan::command('sync-gid', function() {
     }
     echo "success";
 });
+
 // 创建 number 个分组
 Artisan::command('create-group {numbers}', function ($numbers) {
     Faker\Factory::create();
@@ -117,53 +118,19 @@ Artisan::command('set_client_gid {gid}', function ($gid) {
 });
 
 
-function scan($pattern, $redis = null, callable $handle = null)
-{
-    $keys = array();
-
-    foreach (new Predis\Collection\Iterator\Keyspace($redis, $pattern) as $key)
-    {
-        $keys[] = $key;
-    }
-
-    return null !== $handle ? $handle($keys) : $keys;
-}
-
-function scanAllForMatch ($pattern, $cursor=null, $allResults=array()) {
-
-    // Zero means full iteration
-    if ($cursor==="0") {
-        return $allResults;
-    }
-
-    // No $cursor means init
-    if ($cursor===null) {
-        $cursor = "0";
-    }
-
-    // The call
-    $result = Redis::scan($cursor, 'match', $pattern);
-
-    // Append results to array
-    $allResults = array_merge($allResults, $result[1]);
-
-    // Recursive call until cursor is 0
-    return scanAllForMatch($pattern, $result[0], $allResults);
-}
-
 Artisan::command('fuck', function () {
 
-    $rr = scanAllForMatch('policy_global_*');
+    dispatch((new \App\Jobs\MyTestJob())->onQueue('my-job-test'));
+    exit;
+    $task_4100_keys = Redis::keys("task_4100_*");
+    foreach ($task_4100_keys as $key) {
+        Redis::del($key);
+        echo "delete key:" . $key . PHP_EOL;
+    }
 
-    dump($rr);exit;
-
-
-    $ret = scan('policy_global_*', (new Redis));
-    dump($ret);
+    echo "delete finished";
 
     exit;
-
-
 
     $items = DB::table('client')->select('id')->limit(10)->inRandomOrder()->get();
     $news = $items->map(function ($item) {
