@@ -117,8 +117,42 @@ Artisan::command('set_client_gid {gid}', function ($gid) {
     });
 });
 
+Artisan::command('test-ldap', function () {
+    // using ldap bind
+    $ldaprdn  = 'cn=admin,dc=example,dc=org';     // ldap rdn or dn
+    $ldappass = 'admin';  // associated password
 
+// connect to ldap server
+    $ldapconn = ldap_connect("172.17.0.2")
+    or die("Could not connect to LDAP server.");
+
+    if ($ldapconn) {
+        ldap_set_option($ldapconn, LDAP_OPT_PROTOCOL_VERSION, 3);
+        // binding to ldap server
+        $ldapbind = ldap_bind($ldapconn, $ldaprdn, $ldappass);
+
+        // verify binding
+        if ($ldapbind) {
+            echo "LDAP bind successful...";
+        } else {
+            echo "LDAP bind failed...";
+        }
+
+    }
+});
 Artisan::command('fuck', function () {
+    $users = Adldap::search()->users()->get();
+    dump($users);
+    $user = Adldap::make()->user([
+        'cn' => 'John Doe',
+        'dc' => 'example',
+        'dc' => 'org'
+    ]);
+
+    $user->save();
+    dump($users);
+
+    exit;
 
     dispatch((new \App\Jobs\MyTestJob())->onQueue('my-job-test'));
     exit;
