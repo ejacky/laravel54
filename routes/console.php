@@ -141,6 +141,20 @@ Artisan::command('test-ldap', function () {
     }
 });
 Artisan::command('fuck', function () {
+    $faker = Faker\Factory::create();
+    $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
+
+    $i = 0;
+    while ($i < 5) {
+        $content = file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . 'nac_deviceinfo.json');
+        $cont_arr = json_decode($content, true);
+        $cont_arr['mac'] = $faker->macAddress;
+        $pheanstalk->useTube('work_queue_nac_device_info')->put(json_encode($cont_arr));
+        $i++;
+    }
+
+    dump(file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . 'nac_deviceinfo.json'));
+    exit;
     $users = Adldap::search()->users()->get();
     dump($users);
     $user = Adldap::make()->user([
