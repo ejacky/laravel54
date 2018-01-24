@@ -14,5 +14,6 @@
 Route::get('/', function () {
     //$db = DB::table('cities')->get();
     //var_dump($db);
+    echo "ss";
     return view('welcome');
 });
