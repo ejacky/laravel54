@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.36 on 2017-12-21.
+ * Generated for Laravel 5.4.36 on 2018-03-06.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1898,18 +1898,6 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if the current user is authenticated.
          *
-         * @return \App\User 
-         * @throws \Illuminate\Auth\AuthenticationException
-         * @static 
-         */ 
-        public static function authenticate()
-        {
-            return \Illuminate\Auth\SessionGuard::authenticate();
-        }
-        
-        /**
-         * Determine if the current user is authenticated.
-         *
          * @return bool 
          * @static 
          */ 
@@ -1927,6 +1915,18 @@ namespace Illuminate\Support\Facades {
         public static function guest()
         {
             return \Illuminate\Auth\SessionGuard::guest();
+        }
+        
+        /**
+         * Determine if the current user is authenticated.
+         *
+         * @return \App\User 
+         * @throws \Illuminate\Auth\AuthenticationException
+         * @static 
+         */ 
+        public static function authenticate()
+        {
+            return \Illuminate\Auth\SessionGuard::authenticate();
         }
         
         /**
@@ -6014,7 +6014,7 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function size($queue = null)
         {
-            return \Illuminate\Queue\SyncQueue::size($queue);
+            return \Illuminate\Queue\BeanstalkdQueue::size($queue);
         }
         
         /**
@@ -6024,12 +6024,11 @@ namespace Illuminate\Support\Facades {
          * @param mixed $data
          * @param string $queue
          * @return mixed 
-         * @throws \Exception|\Throwable
          * @static 
          */ 
         public static function push($job, $data = '', $queue = null)
         {
-            return \Illuminate\Queue\SyncQueue::push($job, $data, $queue);
+            return \Illuminate\Queue\BeanstalkdQueue::push($job, $data, $queue);
         }
         
         /**
@@ -6043,7 +6042,7 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function pushRaw($payload, $queue = null, $options = array())
         {
-            return \Illuminate\Queue\SyncQueue::pushRaw($payload, $queue, $options);
+            return \Illuminate\Queue\BeanstalkdQueue::pushRaw($payload, $queue, $options);
         }
         
         /**
@@ -6058,7 +6057,7 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function later($delay, $job, $data = '', $queue = null)
         {
-            return \Illuminate\Queue\SyncQueue::later($delay, $job, $data, $queue);
+            return \Illuminate\Queue\BeanstalkdQueue::later($delay, $job, $data, $queue);
         }
         
         /**
@@ -6070,7 +6069,43 @@ namespace Illuminate\Support\Facades {
          */ 
         public static function pop($queue = null)
         {
-            return \Illuminate\Queue\SyncQueue::pop($queue);
+            return \Illuminate\Queue\BeanstalkdQueue::pop($queue);
+        }
+        
+        /**
+         * Delete a message from the Beanstalk queue.
+         *
+         * @param string $queue
+         * @param string $id
+         * @return void 
+         * @static 
+         */ 
+        public static function deleteMessage($queue, $id)
+        {
+            \Illuminate\Queue\BeanstalkdQueue::deleteMessage($queue, $id);
+        }
+        
+        /**
+         * Get the queue or return the default.
+         *
+         * @param string|null $queue
+         * @return string 
+         * @static 
+         */ 
+        public static function getQueue($queue)
+        {
+            return \Illuminate\Queue\BeanstalkdQueue::getQueue($queue);
+        }
+        
+        /**
+         * Get the underlying Pheanstalk instance.
+         *
+         * @return \Pheanstalk\Pheanstalk 
+         * @static 
+         */ 
+        public static function getPheanstalk()
+        {
+            return \Illuminate\Queue\BeanstalkdQueue::getPheanstalk();
         }
         
         /**
@@ -6085,7 +6120,7 @@ namespace Illuminate\Support\Facades {
         public static function pushOn($queue, $job, $data = '')
         {
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::pushOn($queue, $job, $data);
+            return \Illuminate\Queue\BeanstalkdQueue::pushOn($queue, $job, $data);
         }
         
         /**
@@ -6101,7 +6136,7 @@ namespace Illuminate\Support\Facades {
         public static function laterOn($queue, $delay, $job, $data = '')
         {
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::laterOn($queue, $delay, $job, $data);
+            return \Illuminate\Queue\BeanstalkdQueue::laterOn($queue, $delay, $job, $data);
         }
         
         /**
@@ -6116,7 +6151,7 @@ namespace Illuminate\Support\Facades {
         public static function bulk($jobs, $data = '', $queue = null)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::bulk($jobs, $data, $queue);
+            return \Illuminate\Queue\BeanstalkdQueue::bulk($jobs, $data, $queue);
         }
         
         /**
@@ -6128,7 +6163,7 @@ namespace Illuminate\Support\Facades {
         public static function getConnectionName()
         {
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::getConnectionName();
+            return \Illuminate\Queue\BeanstalkdQueue::getConnectionName();
         }
         
         /**
@@ -6141,7 +6176,7 @@ namespace Illuminate\Support\Facades {
         public static function setConnectionName($name)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-            return \Illuminate\Queue\SyncQueue::setConnectionName($name);
+            return \Illuminate\Queue\BeanstalkdQueue::setConnectionName($name);
         }
         
         /**
@@ -6154,7 +6189,7 @@ namespace Illuminate\Support\Facades {
         public static function setContainer($container)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-            \Illuminate\Queue\SyncQueue::setContainer($container);
+            \Illuminate\Queue\BeanstalkdQueue::setContainer($container);
         }
          
     }
@@ -11240,6 +11275,32 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Register a view composer event.
+         *
+         * @param array|string $views
+         * @param \Closure|string $callback
+         * @return array 
+         * @static 
+         */ 
+        public static function composer($views, $callback)
+        {
+            return \Illuminate\View\Factory::composer($views, $callback);
+        }
+        
+        /**
+         * Register a view creator event.
+         *
+         * @param array|string $views
+         * @param \Closure|string $callback
+         * @return array 
+         * @static 
+         */ 
+        public static function creator($views, $callback)
+        {
+            return \Illuminate\View\Factory::creator($views, $callback);
+        }
+        
+        /**
          * Start a component rendering process.
          *
          * @param string $name
@@ -11288,19 +11349,6 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a view creator event.
-         *
-         * @param array|string $views
-         * @param \Closure|string $callback
-         * @return array 
-         * @static 
-         */ 
-        public static function creator($views, $callback)
-        {
-            return \Illuminate\View\Factory::creator($views, $callback);
-        }
-        
-        /**
          * Register multiple view composers via an array.
          *
          * @param array $composers
@@ -11310,19 +11358,6 @@ namespace Illuminate\Support\Facades {
         public static function composers($composers)
         {
             return \Illuminate\View\Factory::composers($composers);
-        }
-        
-        /**
-         * Register a view composer event.
-         *
-         * @param array|string $views
-         * @param \Closure|string $callback
-         * @return array 
-         * @static 
-         */ 
-        public static function composer($views, $callback)
-        {
-            return \Illuminate\View\Factory::composer($views, $callback);
         }
         
         /**
@@ -11634,107 +11669,6 @@ namespace Illuminate\Support\Facades {
         public static function renderTranslation()
         {
             return \Illuminate\View\Factory::renderTranslation();
-        }
-         
-    }
- 
-}
-
-namespace Adldap\Laravel\Facades { 
-
-    class Adldap {
-        
-        /**
-         * Add a provider by the specified name.
-         *
-         * @param \Adldap\ProviderInterface|array $configuration
-         * @param string $name
-         * @param \Adldap\ConnectionInterface $connection
-         * @param \Adldap\SchemaInterface $schema
-         * @return $this 
-         * @throws \InvalidArgumentException When an invalid type is given as the configuration argument.
-         * @static 
-         */ 
-        public static function addProvider($configuration = array(), $name = 'default', $connection = null, $schema = null)
-        {
-            return \Adldap\Adldap::addProvider($configuration, $name, $connection, $schema);
-        }
-        
-        /**
-         * Returns all of the connection providers.
-         *
-         * @return array 
-         * @static 
-         */ 
-        public static function getProviders()
-        {
-            return \Adldap\Adldap::getProviders();
-        }
-        
-        /**
-         * Retrieves a Provider using it's specified name.
-         *
-         * @param string $name
-         * @throws AdldapException When the specified provider does not exist.
-         * @return \Adldap\ProviderInterface 
-         * @static 
-         */ 
-        public static function getProvider($name)
-        {
-            return \Adldap\Adldap::getProvider($name);
-        }
-        
-        /**
-         * Sets the default provider.
-         *
-         * @param string $name
-         * @throws AdldapException When the specified provider does not exist.
-         * @static 
-         */ 
-        public static function setDefaultProvider($name = 'default')
-        {
-            return \Adldap\Adldap::setDefaultProvider($name);
-        }
-        
-        /**
-         * Retrieves the first default provider.
-         *
-         * @throws AdldapException When no default provider exists.
-         * @return \Adldap\ProviderInterface 
-         * @static 
-         */ 
-        public static function getDefaultProvider()
-        {
-            return \Adldap\Adldap::getDefaultProvider();
-        }
-        
-        /**
-         * Removes a provider by the specified name.
-         *
-         * @param string $name
-         * @return $this 
-         * @static 
-         */ 
-        public static function removeProvider($name)
-        {
-            return \Adldap\Adldap::removeProvider($name);
-        }
-        
-        /**
-         * Connects to the specified provider.
-         * 
-         * If no username and password is given, then the providers
-         * configured admin credentials are used.
-         *
-         * @param string|null $name
-         * @param string|null $username
-         * @param string|null $password
-         * @return \Adldap\ProviderInterface 
-         * @static 
-         */ 
-        public static function connect($name = null, $username = null, $password = null)
-        {
-            return \Adldap\Adldap::connect($name, $username, $password);
         }
          
     }
@@ -14088,8 +14022,6 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
-
-    class Adldap extends \Adldap\Laravel\Facades\Adldap {}
 
     class LogViewer extends \Arcanedev\LogViewer\Facades\LogViewer {}
  

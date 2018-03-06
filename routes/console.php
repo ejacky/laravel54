@@ -140,7 +140,47 @@ Artisan::command('test-ldap', function () {
 
     }
 });
+
+Artisan::command('autodiscovery_upload_info {type}', function ($type) {
+    $faker = Faker\Factory::create();
+    $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
+
+    if ($type == 'host') {
+        $file = 'nac_hostinfo.json';
+        $queue_name = 'work_queue_nac_hostinfo';
+
+        $content = file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . $file);
+        $cont_arr = json_decode($content, true);
+    } else if ($type == 'device') {
+        $file = 'nac_deviceinfo.json';
+        $queue_name = 'work_queue_nac_device_info';
+        $content = file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . $file);
+        $cont_arr = json_decode($content, true);
+        $cont_arr['mac'] = $faker->macAddress;
+    } else {
+        return ;
+    }
+
+    $i = 0;
+    while ($i < 50) {
+
+        $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
+        $i++;
+    }
+    dump('finished');
+});
+
 Artisan::command('fuck', function () {
+    $faker = Faker\Factory::create();
+    $i = 0;
+    while ($i < 100) {
+        //DB::connection('pg_my')->table('test1')->insert(array('id' => $faker->buildingNumber, 'content' =>  $faker->text));
+
+        $minor = $faker->numberBetween(50);
+        DB::connection('pg_my')->table('test2')->insert(array('minor' => $faker->numberBetween(50), 'major' =>  $minor + $faker->randomDigit, 'name' => $faker->name));
+        $i++;
+    }
+    exit;
     $faker = Faker\Factory::create();
     $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
 
@@ -214,4 +254,10 @@ Artisan::command('fuck', function () {
     $ret = DB::table('weather')->get();
     dump($ret);
     echo "hello , fuck!";
+});
+
+Artisan::command('check-file', function () {
+    $allFolder = Storage::allFiles("./");
+    dump($allFolder);
+
 });
