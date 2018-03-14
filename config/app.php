@@ -181,6 +181,9 @@ return [
         Arcanedev\LogViewer\LogViewerServiceProvider::class,
         Adldap\Laravel\AdldapServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
     ],
 

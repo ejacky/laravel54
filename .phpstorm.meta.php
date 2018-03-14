@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2018-03-06.
+    * Generated on 2018-03-14 09:43:00.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -15,6 +15,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'url' => \Illuminate\Routing\UrlGenerator::class,
         'redirect' => \Illuminate\Routing\Redirector::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
         'Illuminate\Contracts\Routing\ResponseFactory' => \Illuminate\Routing\ResponseFactory::class,
         'Illuminate\Contracts\Http\Kernel' => \App\Http\Kernel::class,
         'Illuminate\Contracts\Console\Kernel' => \App\Console\Kernel::class,
@@ -25,7 +27,7 @@ namespace PHPSTORM_META {
         'cookie' => \Illuminate\Cookie\CookieJar::class,
         'db.factory' => \Illuminate\Database\Connectors\ConnectionFactory::class,
         'db' => \Illuminate\Database\DatabaseManager::class,
-        'db.connection' => \Illuminate\Database\PostgresConnection::class,
+        'db.connection' => \Illuminate\Database\MySqlConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => \Illuminate\Database\Eloquent\QueueEntityResolver::class,
         'encrypter' => \Illuminate\Encryption\Encrypter::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
@@ -45,6 +47,8 @@ namespace PHPSTORM_META {
         'Arcanedev\LogViewer\Contracts\Utilities\Filesystem' => \Arcanedev\LogViewer\Utilities\Filesystem::class,
         'Arcanedev\LogViewer\Contracts\Utilities\Factory' => \Arcanedev\LogViewer\Utilities\Factory::class,
         'Arcanedev\LogViewer\Contracts\Utilities\LogChecker' => \Arcanedev\LogViewer\Utilities\LogChecker::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
@@ -135,6 +139,7 @@ namespace PHPSTORM_META {
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
+        'command.ide-helper.eloquent' => \Barryvdh\LaravelIdeHelper\Console\EloquentCommand::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::make(0), map([
         '' => '@',
@@ -143,6 +148,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'url' => \Illuminate\Routing\UrlGenerator::class,
         'redirect' => \Illuminate\Routing\Redirector::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
         'Illuminate\Contracts\Routing\ResponseFactory' => \Illuminate\Routing\ResponseFactory::class,
         'Illuminate\Contracts\Http\Kernel' => \App\Http\Kernel::class,
         'Illuminate\Contracts\Console\Kernel' => \App\Console\Kernel::class,
@@ -153,7 +160,7 @@ namespace PHPSTORM_META {
         'cookie' => \Illuminate\Cookie\CookieJar::class,
         'db.factory' => \Illuminate\Database\Connectors\ConnectionFactory::class,
         'db' => \Illuminate\Database\DatabaseManager::class,
-        'db.connection' => \Illuminate\Database\PostgresConnection::class,
+        'db.connection' => \Illuminate\Database\MySqlConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => \Illuminate\Database\Eloquent\QueueEntityResolver::class,
         'encrypter' => \Illuminate\Encryption\Encrypter::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
@@ -173,6 +180,8 @@ namespace PHPSTORM_META {
         'Arcanedev\LogViewer\Contracts\Utilities\Filesystem' => \Arcanedev\LogViewer\Utilities\Filesystem::class,
         'Arcanedev\LogViewer\Contracts\Utilities\Factory' => \Arcanedev\LogViewer\Utilities\Factory::class,
         'Arcanedev\LogViewer\Contracts\Utilities\LogChecker' => \Arcanedev\LogViewer\Utilities\LogChecker::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
@@ -263,6 +272,7 @@ namespace PHPSTORM_META {
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
+        'command.ide-helper.eloquent' => \Barryvdh\LaravelIdeHelper\Console\EloquentCommand::class,
     ]));
     override(\Illuminate\Contracts\Container\Container::makeWith(0), map([
         '' => '@',
@@ -271,6 +281,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'url' => \Illuminate\Routing\UrlGenerator::class,
         'redirect' => \Illuminate\Routing\Redirector::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
         'Illuminate\Contracts\Routing\ResponseFactory' => \Illuminate\Routing\ResponseFactory::class,
         'Illuminate\Contracts\Http\Kernel' => \App\Http\Kernel::class,
         'Illuminate\Contracts\Console\Kernel' => \App\Console\Kernel::class,
@@ -281,7 +293,7 @@ namespace PHPSTORM_META {
         'cookie' => \Illuminate\Cookie\CookieJar::class,
         'db.factory' => \Illuminate\Database\Connectors\ConnectionFactory::class,
         'db' => \Illuminate\Database\DatabaseManager::class,
-        'db.connection' => \Illuminate\Database\PostgresConnection::class,
+        'db.connection' => \Illuminate\Database\MySqlConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => \Illuminate\Database\Eloquent\QueueEntityResolver::class,
         'encrypter' => \Illuminate\Encryption\Encrypter::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
@@ -301,6 +313,8 @@ namespace PHPSTORM_META {
         'Arcanedev\LogViewer\Contracts\Utilities\Filesystem' => \Arcanedev\LogViewer\Utilities\Filesystem::class,
         'Arcanedev\LogViewer\Contracts\Utilities\Factory' => \Arcanedev\LogViewer\Utilities\Factory::class,
         'Arcanedev\LogViewer\Contracts\Utilities\LogChecker' => \Arcanedev\LogViewer\Utilities\LogChecker::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
@@ -391,6 +405,7 @@ namespace PHPSTORM_META {
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
+        'command.ide-helper.eloquent' => \Barryvdh\LaravelIdeHelper\Console\EloquentCommand::class,
     ]));
     override(\App::make(0), map([
         '' => '@',
@@ -399,6 +414,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'url' => \Illuminate\Routing\UrlGenerator::class,
         'redirect' => \Illuminate\Routing\Redirector::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
         'Illuminate\Contracts\Routing\ResponseFactory' => \Illuminate\Routing\ResponseFactory::class,
         'Illuminate\Contracts\Http\Kernel' => \App\Http\Kernel::class,
         'Illuminate\Contracts\Console\Kernel' => \App\Console\Kernel::class,
@@ -409,7 +426,7 @@ namespace PHPSTORM_META {
         'cookie' => \Illuminate\Cookie\CookieJar::class,
         'db.factory' => \Illuminate\Database\Connectors\ConnectionFactory::class,
         'db' => \Illuminate\Database\DatabaseManager::class,
-        'db.connection' => \Illuminate\Database\PostgresConnection::class,
+        'db.connection' => \Illuminate\Database\MySqlConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => \Illuminate\Database\Eloquent\QueueEntityResolver::class,
         'encrypter' => \Illuminate\Encryption\Encrypter::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
@@ -429,6 +446,8 @@ namespace PHPSTORM_META {
         'Arcanedev\LogViewer\Contracts\Utilities\Filesystem' => \Arcanedev\LogViewer\Utilities\Filesystem::class,
         'Arcanedev\LogViewer\Contracts\Utilities\Factory' => \Arcanedev\LogViewer\Utilities\Factory::class,
         'Arcanedev\LogViewer\Contracts\Utilities\LogChecker' => \Arcanedev\LogViewer\Utilities\LogChecker::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
@@ -519,6 +538,7 @@ namespace PHPSTORM_META {
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
+        'command.ide-helper.eloquent' => \Barryvdh\LaravelIdeHelper\Console\EloquentCommand::class,
     ]));
     override(\App::makeWith(0), map([
         '' => '@',
@@ -527,6 +547,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'url' => \Illuminate\Routing\UrlGenerator::class,
         'redirect' => \Illuminate\Routing\Redirector::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
         'Illuminate\Contracts\Routing\ResponseFactory' => \Illuminate\Routing\ResponseFactory::class,
         'Illuminate\Contracts\Http\Kernel' => \App\Http\Kernel::class,
         'Illuminate\Contracts\Console\Kernel' => \App\Console\Kernel::class,
@@ -537,7 +559,7 @@ namespace PHPSTORM_META {
         'cookie' => \Illuminate\Cookie\CookieJar::class,
         'db.factory' => \Illuminate\Database\Connectors\ConnectionFactory::class,
         'db' => \Illuminate\Database\DatabaseManager::class,
-        'db.connection' => \Illuminate\Database\PostgresConnection::class,
+        'db.connection' => \Illuminate\Database\MySqlConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => \Illuminate\Database\Eloquent\QueueEntityResolver::class,
         'encrypter' => \Illuminate\Encryption\Encrypter::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
@@ -557,6 +579,8 @@ namespace PHPSTORM_META {
         'Arcanedev\LogViewer\Contracts\Utilities\Filesystem' => \Arcanedev\LogViewer\Utilities\Filesystem::class,
         'Arcanedev\LogViewer\Contracts\Utilities\Factory' => \Arcanedev\LogViewer\Utilities\Factory::class,
         'Arcanedev\LogViewer\Contracts\Utilities\LogChecker' => \Arcanedev\LogViewer\Utilities\LogChecker::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
@@ -647,6 +671,7 @@ namespace PHPSTORM_META {
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
+        'command.ide-helper.eloquent' => \Barryvdh\LaravelIdeHelper\Console\EloquentCommand::class,
     ]));
     override(\app(0), map([
         '' => '@',
@@ -655,6 +680,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'url' => \Illuminate\Routing\UrlGenerator::class,
         'redirect' => \Illuminate\Routing\Redirector::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
         'Illuminate\Contracts\Routing\ResponseFactory' => \Illuminate\Routing\ResponseFactory::class,
         'Illuminate\Contracts\Http\Kernel' => \App\Http\Kernel::class,
         'Illuminate\Contracts\Console\Kernel' => \App\Console\Kernel::class,
@@ -665,7 +692,7 @@ namespace PHPSTORM_META {
         'cookie' => \Illuminate\Cookie\CookieJar::class,
         'db.factory' => \Illuminate\Database\Connectors\ConnectionFactory::class,
         'db' => \Illuminate\Database\DatabaseManager::class,
-        'db.connection' => \Illuminate\Database\PostgresConnection::class,
+        'db.connection' => \Illuminate\Database\MySqlConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => \Illuminate\Database\Eloquent\QueueEntityResolver::class,
         'encrypter' => \Illuminate\Encryption\Encrypter::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
@@ -685,6 +712,8 @@ namespace PHPSTORM_META {
         'Arcanedev\LogViewer\Contracts\Utilities\Filesystem' => \Arcanedev\LogViewer\Utilities\Filesystem::class,
         'Arcanedev\LogViewer\Contracts\Utilities\Factory' => \Arcanedev\LogViewer\Utilities\Factory::class,
         'Arcanedev\LogViewer\Contracts\Utilities\LogChecker' => \Arcanedev\LogViewer\Utilities\LogChecker::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
@@ -775,6 +804,7 @@ namespace PHPSTORM_META {
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
+        'command.ide-helper.eloquent' => \Barryvdh\LaravelIdeHelper\Console\EloquentCommand::class,
     ]));
     override(\resolve(0), map([
         '' => '@',
@@ -783,6 +813,8 @@ namespace PHPSTORM_META {
         'router' => \Illuminate\Routing\Router::class,
         'url' => \Illuminate\Routing\UrlGenerator::class,
         'redirect' => \Illuminate\Routing\Redirector::class,
+        'Psr\Http\Message\ServerRequestInterface' => \Zend\Diactoros\ServerRequest::class,
+        'Psr\Http\Message\ResponseInterface' => \Zend\Diactoros\Response::class,
         'Illuminate\Contracts\Routing\ResponseFactory' => \Illuminate\Routing\ResponseFactory::class,
         'Illuminate\Contracts\Http\Kernel' => \App\Http\Kernel::class,
         'Illuminate\Contracts\Console\Kernel' => \App\Console\Kernel::class,
@@ -793,7 +825,7 @@ namespace PHPSTORM_META {
         'cookie' => \Illuminate\Cookie\CookieJar::class,
         'db.factory' => \Illuminate\Database\Connectors\ConnectionFactory::class,
         'db' => \Illuminate\Database\DatabaseManager::class,
-        'db.connection' => \Illuminate\Database\PostgresConnection::class,
+        'db.connection' => \Illuminate\Database\MySqlConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => \Illuminate\Database\Eloquent\QueueEntityResolver::class,
         'encrypter' => \Illuminate\Encryption\Encrypter::class,
         'files' => \Illuminate\Filesystem\Filesystem::class,
@@ -813,6 +845,8 @@ namespace PHPSTORM_META {
         'Arcanedev\LogViewer\Contracts\Utilities\Filesystem' => \Arcanedev\LogViewer\Utilities\Filesystem::class,
         'Arcanedev\LogViewer\Contracts\Utilities\Factory' => \Arcanedev\LogViewer\Utilities\Factory::class,
         'Arcanedev\LogViewer\Contracts\Utilities\LogChecker' => \Arcanedev\LogViewer\Utilities\LogChecker::class,
+        'League\OAuth2\Server\AuthorizationServer' => \League\OAuth2\Server\AuthorizationServer::class,
+        'League\OAuth2\Server\ResourceServer' => \League\OAuth2\Server\ResourceServer::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
         'translator' => \Illuminate\Translation\Translator::class,
@@ -903,6 +937,7 @@ namespace PHPSTORM_META {
         'command.ide-helper.generate' => \Barryvdh\LaravelIdeHelper\Console\GeneratorCommand::class,
         'command.ide-helper.models' => \Barryvdh\LaravelIdeHelper\Console\ModelsCommand::class,
         'command.ide-helper.meta' => \Barryvdh\LaravelIdeHelper\Console\MetaCommand::class,
+        'command.ide-helper.eloquent' => \Barryvdh\LaravelIdeHelper\Console\EloquentCommand::class,
     ]));
 
     override(\Illuminate\Support\Arr::add(0), type(0));
@@ -933,5 +968,6 @@ namespace PHPSTORM_META {
     override(\head(0), elementType(0));
     override(\last(0), elementType(0));
     override(\with(0), type(0));
+    override(\tap(0), type(0));
 
 }

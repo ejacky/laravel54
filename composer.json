@@ -11,9 +11,11 @@
         "barryvdh/laravel-ide-helper": "^2.4",
         "jenssegers/mongodb": "v3.2.3",
         "laravel/framework": "5.4.*",
+        "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
         "pda/pheanstalk": "~3.0",
-        "predis/predis": "~1.0"
+        "predis/predis": "~1.0",
+        "tymon/jwt-auth": "1.0.0-rc.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
