@@ -21,8 +21,13 @@ Route::post('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('fuck', function (Request $request) {
-    return response()->json(['created' => true,]);
+Route::post('/fuck', function (Request $request) {
+    var_dump($request->has('username'));
+    var_dump($request->header());
+    var_dump($_REQUEST);
+    var_dump($_POST);exit;
+
+    //return response()->json(['created' => true,]);
 });
 
 Route::group([

@@ -170,7 +170,42 @@ Artisan::command('autodiscovery_upload_info {type}', function ($type) {
     dump('finished');
 });
 
+// 模拟安检日志
+Artisan::command('mock_seccheck_log', function () {
+    $file = 'sec_check_log.json';
+    $queue_name = 'work_queue_ngx2php';
+    $content = file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . $file);
+    $cont_arr = json_decode($content, true);
+    $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
+    $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
+
+});
+
 Artisan::command('fuck', function () {
+    $dic = [0 => '日', 1 => '一', 2 => '二', 3 => 'ss', 4 => 'dd'];
+    $t = [3,4];
+    $tt = array_walk($t, function (&$item) use ($dic) {
+        $item = $dic[$item];
+    });
+    dump($t);
+
+
+    exit;
+
+    $models = DB::table('policy_history')
+        ->where('mid', 'mid')
+        ->update(['']);
+    foreach ($models as $model) {
+        if ($model->mid == 'mid_1') {
+            $ret = $model->update(['mid' => 'e6cca89c21504603ac5f3b543533e00b']);
+            if ($ret) {
+                echo $model->id;
+                echo PHP_EOL;
+            }
+        }
+    }
+
+    exit;
     $faker = Faker\Factory::create();
     $i = 0;
     while ($i < 100) {

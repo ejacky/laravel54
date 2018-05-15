@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (\Illuminate\Http\Request $request) {
+    $request->get('');
     //$db = DB::table('cities')->get();
     //var_dump($db);
     echo "ss";
