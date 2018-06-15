@@ -145,6 +145,7 @@ Artisan::command('autodiscovery_upload_info {type}', function ($type) {
     $faker = Faker\Factory::create();
     $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
 
+
     if ($type == 'host') {
         $file = 'nac_hostinfo.json';
         $queue_name = 'work_queue_nac_hostinfo';
@@ -156,17 +157,34 @@ Artisan::command('autodiscovery_upload_info {type}', function ($type) {
         $queue_name = 'work_queue_nac_device_info';
         $content = file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . $file);
         $cont_arr = json_decode($content, true);
-        $cont_arr['mac'] = $faker->macAddress;
+
+        $mids = DB::table('client')->select(['mid'])->limit(20)->get()->toArray();
+        $cnt = DB::table('client')->count();
+
+        //dump(array_rand($mids, 1));exit;
+        $i = 0;
+        while ($i < 1500) {
+            $rand_index = array_rand($mids, 1);
+            if ($cnt < 20) {
+                $mid = $faker->uuid;
+                DB::table('client')->updateOrInsert(['mid' => $mid, 'ip' => $faker->ip, 'mac' => $faker->macAddress, 'report_ip' => $faker->ipv4]);
+            } else {
+                $mid = $mids[$rand_index]->mid;
+            }
+            $cont_arr['mid'] = $mid;
+            $cont_arr['ip'] = $faker->ipv4;
+            $cont_arr['mac'] = $faker->macAddress;
+            echo $cont_arr['ip'];
+            echo PHP_EOL;
+            $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
+            $i++;
+        }
     } else {
+        echo "参数错误";
         return ;
     }
 
-    $i = 0;
-    while ($i < 50) {
 
-        $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
-        $i++;
-    }
     dump('finished');
 });
 
@@ -178,10 +196,30 @@ Artisan::command('mock_seccheck_log', function () {
     $cont_arr = json_decode($content, true);
     $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
     $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
+    echo "finished";
 
 });
 
 Artisan::command('fuck', function () {
+
+//    $a = false;
+//    var_dump($a['detail']);
+//    if (empty($a['detail'])) {
+//        echo "ss";
+//        $a['detail'] = [];
+//    }
+//    var_dump($a['detail']);
+//    exit;
+//    $faker = Faker\Factory::create();
+//    dump($faker->ipv4);
+//    exit;
+//    dump(class_exists('Tideways\Profiler'));
+    \Tideways\Profiler::start();
+    \Tideways\Profiler::setTransactionName('fuck.php');
+    $uuid = \Faker\Provider\Uuid::uuid();
+    dump($uuid);
+    \Tideways\Profiler::stop();
+    exit;
     $dic = [0 => '日', 1 => '一', 2 => '二', 3 => 'ss', 4 => 'dd'];
     $t = [3,4];
     $tt = array_walk($t, function (&$item) use ($dic) {
