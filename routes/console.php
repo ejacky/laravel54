@@ -163,7 +163,7 @@ Artisan::command('autodiscovery_upload_info {type}', function ($type) {
 
         //dump(array_rand($mids, 1));exit;
         $i = 0;
-        while ($i < 1500) {
+        while ($i < 500000) {
             $rand_index = array_rand($mids, 1);
             if ($cnt < 20) {
                 $mid = $faker->uuid;
@@ -178,6 +178,10 @@ Artisan::command('autodiscovery_upload_info {type}', function ($type) {
             echo PHP_EOL;
             $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
             $i++;
+            if ((int)$i % 10000 === 0) {
+                echo "sleep 1 second" . PHP_EOL;
+                sleep(1);
+            }
         }
     } else {
         echo "参数错误";
@@ -201,6 +205,18 @@ Artisan::command('mock_seccheck_log', function () {
 });
 
 Artisan::command('fuck', function () {
+    $faker = Faker\Factory::create();
+    for ($i = 0; $i < 20000; $i++) {
+        $insert = DB::table('client')->updateOrInsert(['mid' => $faker->uuid, 'ip' => $faker->ipv4, 'mac' => $faker->macAddress, 'report_ip' => $faker->ipv4]);
+        dump($insert);
+        echo "insert success, number: " . $i;
+        echo PHP_EOL;
+    }
+    echo 'finised';
+
+
+
+
 
 //    $a = false;
 //    var_dump($a['detail']);
@@ -220,15 +236,7 @@ Artisan::command('fuck', function () {
     dump($uuid);
     \Tideways\Profiler::stop();
     exit;
-    $dic = [0 => '日', 1 => '一', 2 => '二', 3 => 'ss', 4 => 'dd'];
-    $t = [3,4];
-    $tt = array_walk($t, function (&$item) use ($dic) {
-        $item = $dic[$item];
-    });
-    dump($t);
 
-
-    exit;
 
     $models = DB::table('policy_history')
         ->where('mid', 'mid')
