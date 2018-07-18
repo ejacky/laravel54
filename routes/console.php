@@ -198,15 +198,104 @@ Artisan::command('mock_seccheck_log', function () {
     $queue_name = 'work_queue_ngx2php';
     $content = file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . $file);
     $cont_arr = json_decode($content, true);
-    $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
-    $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
-    echo "finished";
+    $client = DB::table('client')->select(['mid', 'ip'])->limit(2000)->get()->toArray();
 
+    $i = 0;
+    while ($i < 20000) {
+        $rand_index = array_rand($client, 1);
+        $cont_arr['data'][0]['mid'] = $client[$rand_index]->mid;
+        $cont_arr['data'][0]['addr'] = $client[$rand_index]->ip;
+        //$cont_arr['data'][0]['data'] = '';
+        $pheanstalk = new \Pheanstalk\Pheanstalk('127.0.0.1');
+        $pheanstalk->useTube($queue_name)->put(json_encode($cont_arr));
+        echo "report log from:" . $client[$rand_index]->ip . PHP_EOL;
+        $i++;
+    }
+    echo "finished";
 });
 
+Artisan::command('mock_upload_report', function () {
+    $i = 0;
+    while ($i < 2000) {
+        $mids = ["738b3fee389e497d831318d346682744", "ccba0000000000000000000000000001"];
+        $insert_arg = '{
+  "event_time": "' . date('Y-m-d H:i:s') .'",
+  "mid": "' . $mids[rand(0, 1)] .'",
+  "gid": 1,
+  "templet_id": 12,
+  "check_num": 12,
+  "fault_num": 4,
+  "check_result": 0,
+  "detail": "[{\"id\":1000,\"pass\":1,\"key_item\":0},{\"id\":1001,\"pass\":1,\"key_item\":0},{\"id\":1002,\"pass\":1,\"key_item\":0}]"
+}';
+        $i++;
+        Redis::connection('skylarminide')->executeRaw(['insert', 'security_check', $insert_arg]);
+        echo $i;
+        echo PHP_EOL;
+    }
+});
+
+
+
 Artisan::command('fuck', function () {
+
+    $dataJson = Redis::connection('skylarminide')->executeRaw(['list', 'security_check', 1 ,15]);
+
+    $datas = json_decode($dataJson, true);
+    if (!empty($datas)) {
+        foreach ($datas as $data) {
+            $value = json_decode($data['value'], true);
+            echo $value['mid'];
+            echo "||";
+            echo $value['event_time'];
+            echo PHP_EOL;
+        }
+    } else {
+        echo "parse minide json error";
+    }
+
+
+
+    exit;
+
+    $file = 'upload_client_log.json';
+    $content = file_get_contents(storage_path() .  DIRECTORY_SEPARATOR  . 'app' . DIRECTORY_SEPARATOR . $file);
+    $client = new \GuzzleHttp\Client();
+    $r = $client->request('POST', 'http://10.98.2.163/api/upload_client_log.json?mid=738b3fee389e497d831318d346682744', [
+        'body' => $content
+    ]);
+
+    echo ($r->getBody());
+    exit;
+
     $faker = Faker\Factory::create();
-    for ($i = 0; $i < 20000; $i++) {
+    DB::table('client')->updateOrInsert(['mid' => '738b3fee389e497d831318d346682744', 'ip' => $faker->ipv4, 'mac' => $faker->macAddress, 'report_ip' => $faker->ipv4]);
+    exit;
+
+    $white = ['name' => 'z'];
+    $t = $white['os'];
+    if (empty($white['os'])) {
+        echo "no";
+    } else {
+        echo "yes";
+    }
+    exit;
+    $faker = Faker\Factory::create();
+    $i = 0;
+    while ($i < 10000) {
+        $state = strtoupper(substr($faker->city, 0, 2));
+        DB::connection('pg_my')->table('capitals')->insert(['name' => $faker->city, 'state' => $state]);
+        $i++;
+        echo $state; echo PHP_EOL;
+        echo $i; echo PHP_EOL;
+    }
+    exit;
+    $db = DB::connection();
+
+    //dump($db);
+    //exit;
+    $faker = Faker\Factory::create();
+    for ($i = 0; $i < 20; $i++) {
         $insert = DB::table('client')->updateOrInsert(['mid' => $faker->uuid, 'ip' => $faker->ipv4, 'mac' => $faker->macAddress, 'report_ip' => $faker->ipv4]);
         dump($insert);
         echo "insert success, number: " . $i;
